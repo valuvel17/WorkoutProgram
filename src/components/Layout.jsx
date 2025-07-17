@@ -14,11 +14,11 @@ export default function Layout(props) {
     <footer>
       <p>
         Built by{" "}
-        <a href="" target="_blank">
+        <a href="/" target="_blank">
           Valentina Velázquez
-        </a>{" "}
-        <br />
-        Styled with FantaCSS
+        </a>{" ⭐ the repo on "}
+        <a target="_blank" href="https://github.com/valuvel17/WorkoutProgram"
+          >Github</a>
       </p>
     </footer>
   );
