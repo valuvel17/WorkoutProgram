@@ -1,12 +1,49 @@
-# React + Vite
+# 🏋️‍♀️ WorkoutProgram
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**WorkoutProgram** is a web application that guides users through a 30-day training program, split into **Push**, **Pull**, and **Legs** routines. Progress is saved locally, and workouts unlock progressively as you complete each day.
+This project was built as a practical exercise to apply React, Vite, LocalStorage and clean code when possible.
 
-Currently, two official plugins are available:
+## 🚀 Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Coming soon...
 
-## Expanding the ESLint configuration
+## 📸 Screenshots
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+![Grid Screenshot](./src/assets/screenshot-grid.png)  
+![Routine Screenshot](./src/assets/screenshot-routine.png)
+
+## ✨ Features
+
+- 🔓 Progressive workout unlocking
+- 💾 Save progress using `localStorage`
+- 🏋️ Track sets, reps, and weight for each exercise
+- ❓ Modal with exercise instructions and descriptions
+- 💡 Clean and responsive UI
+
+## 🧰 Technologies Used
+
+- **React** – Component-based UI
+- **Vite** 
+- **JavaScript (ES6+)**
+- **CSS** 
+- **Font Awesome** – Icons for exercises and status
+- **LocalStorage** – Frontend-only persistence
+
+
+## 📦 Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/valuvel17/WorkoutProgram.git
+cd WorkoutProgram
+```
+2. Install dependencies:
+```bash
+npm install
+```
+3. Start the development server:
+```bash
+npm run dev
+```
+
