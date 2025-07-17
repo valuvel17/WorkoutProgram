@@ -9,8 +9,10 @@ Coming soon...
 
 ## 📸 Screenshots
 
-![Grid Screenshot](./src/assets/screenshot-grid.png)  
-![Routine Screenshot](./src/assets/screenshot-routine.png)
+![Grid Screenshot dark mode](./src/assets/screenshot-grid.png)  
+![Routine Screenshot dark mode](./src/assets/screenshot-routine.png)
+![Grid Screenshot light mode](./src/assets/screenshot-grid-light.png)  
+![Routine Screenshot light mode](./src/assets/screenshot-routine-light.png)
 
 ## ✨ Features
 
