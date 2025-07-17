@@ -1,21 +1,15 @@
-export function GetWorkoutType(index) {
-  return index % 3 === 0 ? 'Push' : index % 3 === 1 ? 'Pull' : 'Legs';
+import { WORKOUT_TYPES, ICON_CLASSES } from '../constants/workoutTypes';
+
+export function getWorkoutType(index) {
+  return WORKOUT_TYPES[index % 3];
 }
 
-export function FormatDay(index) {
+export function formatDay(index) {
   const day = index + 1;
   return day < 10 ? `0${day}` : `${day}`;
 }
 
-export function GetIconClass(index, isLocked) {
-  if (isLocked) return 'fa-solid fa-lock';
-
-  const icons = [
-    'fa-solid fa-dumbbell',
-    'fa-solid fa-weight-hanging',
-    'fa-solid fa-bolt'
-  ];
-
-  return icons[index % 3];
+export function getIconClass(index, isLocked) {
+  return isLocked ? 'fa-solid fa-lock' : ICON_CLASSES[index % 3];
 }
 

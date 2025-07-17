@@ -1,29 +1,25 @@
-import React, { useState } from "react";
-import Modal from "./Modal";
-import { exerciseDescriptions } from "../utils/index";
+import { useState } from "react";
+import Modal from "./Modal.jsx";
+import WorkoutCardHeader from "./WorkoutCardHeader.jsx";
+import ExerciseGrid from "./ExerciseGrid.jsx";
 
-export default function WorkoutCard(props) {
-  const {
-    trainingPlan,
-    workoutIndex,
-    type,
-    dayNum,
-    icon,
-    savedWeights,
-    HandleSave,
-    HandleComplete,
-  } = props;
 
+export default function WorkoutCard({
+  trainingPlan,
+  workoutIndex,
+  type,
+  dayNum,
+  icon,
+  savedWeights,
+  HandleSave,
+  HandleComplete,
+}) {
   const { warmup, workout } = trainingPlan || {};
   const [showExerciseDescription, setShowExerciseDescription] = useState(null);
   const [weights, setWeights] = useState(savedWeights || {});
 
   function HandleAddWeight(title, weight) {
-    const newObj = {
-      ...weights,
-      [title]: weight,
-    };
-    setWeights(newObj);
+    setWeights({ ...weights, [title]: weight });
   }
 
   return (
@@ -31,111 +27,38 @@ export default function WorkoutCard(props) {
       {showExerciseDescription && (
         <Modal
           showExerciseDescription={showExerciseDescription}
-          handleCloseModal={() => {
-            setShowExerciseDescription(null);
-          }}
+          handleCloseModal={() => setShowExerciseDescription(null)}
         />
       )}
+
       <div className="workout-card card">
-        <div className="plan-card-header">
-          <p>Day {dayNum}</p>
-          {icon}
-        </div>
-        <div className="plan-card-header">
-          <h2>
-            <b>{type} Workout</b>
-          </h2>
-        </div>
+        <WorkoutCardHeader dayNum={dayNum} icon={icon} type={type} />
       </div>
 
-      <div className="workout-grid">
-        <div className="exercise-name">
-          <h4>Warmup</h4>
-        </div>
-        <h6>Sets</h6>
-        <h6>Reps</h6>
-        <h6 className="weight-input">Max Weight</h6>
-        {warmup.map((warmupExercise, warmupIndex) => {
-          return (
-            <React.Fragment key={warmupIndex}>
-              <div className="exercise-name">
-                <p>
-                  {warmupIndex + 1}, {warmupExercise.name}
-                </p>
-                <button
-                  onClick={() => {
-                    setShowExerciseDescription({
-                      name: warmupExercise.name,
-                      description: exerciseDescriptions[warmupExercise.name],
-                    });
-                  }}
-                  className="help-icon"
-                >
-                  <i className="fa-regular fa-circle-question" />
-                </button>
-              </div>
-              <p className="exercise-info">{warmupExercise.sets}</p>
-              <p className="exercise-info">{warmupExercise.reps}</p>
-              <input disabled className="weight-input" placeholder="N/A" />
-            </React.Fragment>
-          );
-        })}
-      </div>
+      <ExerciseGrid
+        title="Warmup"
+        list={warmup}
+        isWarmup={true}
+        weights={weights}
+        onHelpClick={setShowExerciseDescription}
+      />
 
-      <div className="workout-grid">
-        <div className="exercise-name">
-          <h4>Workout</h4>
-        </div>
-        <h6>Sets</h6>
-        <h6>Reps</h6>
-        <h6 className="weight-input">Max Weight</h6>
-        {workout.map((workoutExercise, wIndex) => {
-          return (
-            <React.Fragment key={wIndex}>
-              <div className="exercise-name">
-                <p>
-                  {wIndex + 1}, {workoutExercise.name}
-                </p>
-                <button
-                  onClick={() => {
-                    setShowExerciseDescription({
-                      name: workoutExercise.name,
-                      description: exerciseDescriptions[workoutExercise.name],
-                    });
-                  }}
-                  className="help-icon"
-                >
-                  <i className="fa-regular fa-circle-question" />
-                </button>
-              </div>
-              <p className="exercise-info">{workoutExercise.sets}</p>
-              <p className="exercise-info">{workoutExercise.reps}</p>
-              <input
-                value={weights[workoutExercise.name] || ""}
-                onChange={(e) => {
-                  HandleAddWeight(workoutExercise.name, e.target.value);
-                }}
-                className="weight-input"
-                placeholder="14"
-              />
-            </React.Fragment>
-          );
-        })}
-      </div>
+      <ExerciseGrid
+        title="Workout"
+        list={workout}
+        isWarmup={false}
+        weights={weights}
+        onWeightChange={HandleAddWeight}
+        onHelpClick={setShowExerciseDescription}
+      />
 
       <div className="workout-buttons">
-        <button
-          onClick={() => {
-            HandleSave(workoutIndex, { weights });
-          }}
-        >
+        <button onClick={() => HandleSave(workoutIndex, { weights })}>
           Save & Exit
         </button>
         <button
-          onClick={() => {
-            HandleComplete(workoutIndex, { weights });
-          }}
-          disabled={Object.keys(weights).length != workout.length}
+          onClick={() => HandleComplete(workoutIndex, { weights })}
+          disabled={Object.keys(weights).length !== workout.length}
         >
           Complete
         </button>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { FormatDay, GetWorkoutType, GetIconClass } from "../utils/helpers.js";
+import { formatDay, getWorkoutType, getIconClass } from "../utils/helpers.js";
 import { workoutProgram as training_plan } from "../utils/index.js";
+import { getSavedProgram, saveProgram } from "../utils/storage";
 import WorkoutCard from "./WorkoutCard.jsx";
 
 export default function Grid() {
@@ -21,7 +22,7 @@ export default function Grid() {
       },
     };
     setSavedWorkouts(newObj);
-    localStorage.setItem("TheProgram", JSON.stringify(newObj));
+    saveProgram(newObj);
     setSelectedWorkout(null);
   }
 
@@ -32,14 +33,7 @@ export default function Grid() {
   }
 
   useEffect(() => {
-    if (!localStorage) {
-      return;
-    }
-    let savedData = {};
-    if (localStorage.getItem("TheProgram")) {
-      savedData = JSON.parse(localStorage.getItem("TheProgram"));
-    }
-    setSavedWorkouts(savedData);
+    setSavedWorkouts(getSavedProgram());
   }, []);
 
   return (
@@ -49,10 +43,10 @@ export default function Grid() {
           workout == 0
             ? false
             : !completedWorkouts.includes(String(workoutIndex - 1));
-        const type = GetWorkoutType(workoutIndex);
+        const type = getWorkoutType(workoutIndex);
         const trainingPlan = training_plan[workoutIndex];
-        const dayNum = FormatDay(workoutIndex);
-        const icon = <i className={GetIconClass(workoutIndex, isLocked)}></i>;
+        const dayNum = formatDay(workoutIndex);
+        const icon = <i className={getIconClass(workoutIndex, isLocked)}></i>;
         if (workoutIndex == selectedWorkout) {
           return (
             <WorkoutCard
@@ -70,7 +64,10 @@ export default function Grid() {
         }
         return (
           <button
-            onClick={() => { if(isLocked) { return}
+            onClick={() => {
+              if (isLocked) {
+                return;
+              }
               setSelectedWorkout(workoutIndex);
             }}
             className={"card plan-card " + (isLocked ? "inactive" : "")}
